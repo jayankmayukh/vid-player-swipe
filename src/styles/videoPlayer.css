@@ -1,0 +1,19 @@
+.video-unit-container {
+    display: flex;
+    width: 200%;
+}
+
+.video-unit {
+    position: relative;
+}
+
+.name-container {
+    background: white;
+    display: block;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-weight: 700;
+    font-size: xx-large;
+}

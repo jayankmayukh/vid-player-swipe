@@ -1,0 +1,9 @@
+.swipe-container {
+    overflow: hidden;
+    overscroll-behavior: none;
+}
+
+.swipe-moving {
+    background: #000000;
+    transform: trans;
+}
