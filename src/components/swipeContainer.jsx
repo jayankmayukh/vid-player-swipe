@@ -55,7 +55,7 @@ const SwipeContainer = ({
     callback,
     onlyCallback = false,
     maxOffsetMultiplier = Infinity,
-    minOffsetMultiplier = 0,
+    minOffsetMultiplier = 0
 }) => {
     const containerRef = useRef()
     const { current: touchInfo } = useRef({})
@@ -70,9 +70,6 @@ const SwipeContainer = ({
     // using translate3d for GPU acceleration
     const transform = onlyCallback ? undefined : `translate3d(${transX}px, ${transY}px, 0)`
 
-    useEffect(() => {
-        
-    }, [offsetMultiplier])
 
     const touchStartHandler = (e) => {
         if (e.touches.length === 1) {
@@ -101,8 +98,10 @@ const SwipeContainer = ({
             if (
                 touchInfo.initialDirection === direction &&
                 end.identifier === start.identifier &&
-                (offsetMultiplier !== minOffsetMultiplier || swipeSign(start, end, direction) === 1) &&
-                (offsetMultiplier !== maxOffsetMultiplier || swipeSign(start, end, direction) === -1)
+                (offsetMultiplier !== minOffsetMultiplier ||
+                    swipeSign(start, end, direction) === 1) &&
+                (offsetMultiplier !== maxOffsetMultiplier ||
+                    swipeSign(start, end, direction) === -1)
             ) {
                 const diff = swipeDiff(end, start, direction)
                 setTempOffset(diff)
@@ -125,8 +124,7 @@ const SwipeContainer = ({
             )
             offsetChangeSign.current = newOffsetMultiplier - offsetMultiplier
             setOffsetMultiplier(newOffsetMultiplier)
-            if (callback instanceof Function)
-                callback(offsetChangeSign.current, offsetMultiplier)
+            if (callback instanceof Function) callback(offsetChangeSign.current, offsetMultiplier)
         }
         setTempOffset(0)
         delete touchInfo.initialDirection

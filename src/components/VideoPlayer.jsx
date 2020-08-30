@@ -11,10 +11,11 @@ const VideoPlayer = () => {
     const { current: refObj } = useRef({})
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
-    const [mute, setMute] = useState(false)
+    const [mute, setMute] = useState(true)
     const count = useRef(7)
     const vid = useRef(0)
     const [data, setData] = useState([])
+    const touchScreen = 'ontouchstart' in window
     const playCurrent = () => {
         refObj[vid.current] &&
             refObj[vid.current]
@@ -71,8 +72,8 @@ const VideoPlayer = () => {
                         loop={true}
                         muted={mute}
                     />
-                    {loading ? <Message message='loading...' /> : null}
-                    {error ? <Message message='Something went wrong.' /> : null}
+                    {loading && touchScreen ? <Message message='loading...' /> : null}
+                    {error && touchScreen ? <Message message='Something went wrong.' /> : null}
                 </div>
                 <div className='name-container' style={{ width, height }}>
                     <span>{channel && channel.user.name}</span>
@@ -103,6 +104,7 @@ const VideoPlayer = () => {
             >
                 {children}
             </SwipeContainer>
+            {touchScreen ? null : <Message message='Touch not Supported. Click based version is not implemented yet. Use Chrome Dev tool to examine it with touch.' />}
         </div>
     )
 }
